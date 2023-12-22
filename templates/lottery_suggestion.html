@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lottery Suggestion</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Lottery Number Suggestion</h1>
+    <form method="POST" action="/lottery_suggestion">
+        <input type="submit" value="Generate Suggestion">
+    </form>
+
+    {% if suggestion %}
+        <h2>Suggested Numbers:</h2>
+        <ul>
+            {% for number in suggestion %}
+                <li>{{ number }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if img_base64 %}
+        <h2>Frequency Plot:</h2>
+        <img src="data:image/png;base64,{{ img_base64 }}" alt="Lottery Frequency Plot">
+    {% endif %}
+</body>
+</html>
