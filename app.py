@@ -49,7 +49,7 @@ else:
     model.save(model_filename)
 
 
-def generate_lottery_suggestion():
+""" def generate_lottery_suggestion():
     # Gerar sugestões para um próximo sorteio
     suggestion_scaled = model.predict(np.random.rand(1, features_scaled.shape[1]))  # Entrada aleatória para prever
     suggestion = scaler.inverse_transform(suggestion_scaled)  # Desnormalizar as sugestões
@@ -70,9 +70,36 @@ def generate_lottery_suggestion():
     # Se o modelo gerar mais de seis números distintos, pegar os seis primeiros
     suggestion = suggestion[:6]
 
-    return suggestion
+    return suggestion """
+
+"""
+=========================================================
+TENTATIVA DE CORREÇÃO DO NÚMERO 60 EM TODAS AS SUGESTÕES
+=========================================================
+"""
+def generate_lottery_suggestion():
+    # Obtém a contagem de ocorrências de cada número
+    number_counts = df.stack().value_counts()
+
+    # Separa os números mais sorteados e menos sorteados (25 de cada)
+    most_common_numbers = number_counts.head(25).index.tolist()
+    least_common_numbers = number_counts.tail(25).index.tolist()
+
+    suggestion = []
+    
+    # Adiciona 3 números dos mais sorteados e 3 números dos menos sorteados
+    for _ in range(3):
+        suggestion.append(np.random.choice(most_common_numbers))
+        suggestion.append(np.random.choice(least_common_numbers))
+
+    return suggestion[:6]  # Retorna apenas 6 números
 
 
+"""
+===============================================================
+FIM DA TENTATIVA DE CORREÇÃO DO NÚMERO 60 EM TODAS AS SUGESTÕES
+===============================================================
+"""
 
 def plot_lottery_frequency():
     # Criar uma lista com todos os números sorteados
