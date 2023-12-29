@@ -8,7 +8,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     </head>
 <body>
-    <h1>Multiple Lottery Suggestions</h1>
+    <h1>Sugestão de Múltiplos Jogos</h1>
     <form method="POST" action="/multiple_lottery_suggestions">
         <label for="num_draws">Número de jogos (1 até 10):</label>
         <select name="num_draws" id="num_draws">
@@ -24,16 +24,18 @@
             {% endfor %}
         </select>
         <br><br>
-        <input type="submit" value="Generate Suggestions">
+        <input type="submit" value="Gerar Jogos">
     </form>
     {% if suggestions %}
         <hr>
-        <h2>Suggestions:</h2>
+        <h2>Sugestões:</h2>
         {% for idx in range(suggestions|length) %}
             <p>
                 Sugestão {{ idx + 1 }}:
                 {% for num in suggestions[idx]|sort %}
-                    {{ num }}&nbsp;
+                <span class="bola">
+                    {{ num }}
+                </span>                    
                 {% endfor %}
             </p>
         {% endfor %}

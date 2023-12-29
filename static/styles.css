@@ -48,3 +48,22 @@ img {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+p{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    margin-left: 10px;
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+    border-radius: 50px;
+
+}
