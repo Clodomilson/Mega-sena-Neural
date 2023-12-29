@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lottery Suggestion</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+<body>
+    <h1>Multiple Lottery Suggestions</h1>
+    <form method="POST" action="/multiple_lottery_suggestions">
+        <label for="num_draws">Número de jogos (1 até 10):</label>
+        <select name="num_draws" id="num_draws">
+            {% for num in range(1, 11) %}
+                <option value="{{ num }}">{{ num }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for="num_choices">Quantidade de dezenas por jogo (6 até 20):</label>
+        <select name="num_choices" id="num_choices">
+            {% for num in range(6, 21) %}
+                <option value="{{ num }}">{{ num }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <input type="submit" value="Generate Suggestions">
+    </form>
+    {% if suggestions %}
+        <hr>
+        <h2>Suggestions:</h2>
+        {% for idx in range(suggestions|length) %}
+            <p>
+                Sugestão {{ idx + 1 }}:
+                {% for num in suggestions[idx]|sort %}
+                    {{ num }}&nbsp;
+                {% endfor %}
+            </p>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

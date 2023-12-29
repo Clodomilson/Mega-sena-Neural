@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -135,6 +135,36 @@ def lottery_suggestion():
     img_base64 = plot_lottery_frequency()
 
     return render_template('lottery_suggestion.html', suggestion=suggestion, img_base64=img_base64)
+
+"""
+=========================================================
+ROTA PARA SUGESTÃO DE MAIS SORTEIOS E MAIS DEZENAS
+=========================================================
+"""
+@app.route('/multiple_lottery_suggestions', methods=['GET', 'POST'])
+def multiple_lottery_suggestions():
+    if request.method == 'GET':
+        return render_template('combined_lottery.html')
+    elif request.method == 'POST':
+        num_draws = int(request.form['num_draws'])
+        num_choices = int(request.form['num_choices'])
+
+        suggestions = []
+
+        for _ in range(num_draws):
+            suggestion = []
+            for _ in range(num_choices):
+                suggestion.append(np.random.randint(1, 61))
+            suggestions.append(suggestion)
+
+        return render_template('combined_lottery.html', suggestions=suggestions)
+
+
+"""
+=========================================================
+FIM DA ROTA PARA SUGESTÃO DE MAIS SORTEIOS E MAIS DEZENAS
+=========================================================
+"""
 
 
 if __name__ == '__main__':
